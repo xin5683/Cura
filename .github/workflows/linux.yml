@@ -238,6 +238,11 @@ jobs:
                         for package in pkg_resources.working_set:
                             f.writelines(f"`{package.key}/{package.version}`\n")
 
+            -   name: copy config (Bash)
+                run: |
+                    cp -rf $GITHUB_WORKSPACE/resources/* ./UltiMaker-Cura/share/cura/resources/
+                working-directory: dist
+
             -   name: Create the Linux AppImage (Bash)
                 run: |
                     python ../cura_inst/packaging/AppImage/create_appimage.py ./UltiMaker-Cura $CURA_VERSION_FULL "${{ steps.filename.outputs.INSTALLER_FILENAME }}.AppImage"
